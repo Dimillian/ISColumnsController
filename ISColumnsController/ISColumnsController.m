@@ -29,11 +29,11 @@
 
 - (void)loadTitleView
 {
-    UIView *titleView = [[UIView alloc] init];
+    UIView *titleView = [[[UIView alloc] init] autorelease];
     titleView.frame = CGRectMake(0, 0, 150, 44);
     titleView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
-    self.pageControl = [[UIPageControl alloc] init];
+    self.pageControl = [[[UIPageControl alloc] init] autorelease];
     self.pageControl.numberOfPages = 3;
     self.pageControl.frame = CGRectMake(0, 27, 150, 14);
     self.pageControl.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin|
@@ -45,7 +45,7 @@
     
     [titleView addSubview:self.pageControl];
     
-    self.titleLabel = [[UILabel alloc] init];
+    self.titleLabel = [[[UILabel alloc] init] autorelease];
     self.titleLabel.frame = CGRectMake(0, 5, 150, 24);
     self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     self.titleLabel.backgroundColor = [UIColor clearColor];
@@ -65,7 +65,7 @@
 {
     [super loadView];
 
-    self.scrollView = [[UIScrollView alloc] init];
+    self.scrollView = [[[UIScrollView alloc] init] autorelease];
     self.scrollView.backgroundColor = [UIColor blackColor];
     self.scrollView.pagingEnabled = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -118,6 +118,13 @@
 {
     [self removeObserver:self forKeyPath:@"viewControllers"];
     [self.pageControl removeObserver:self forKeyPath:@"currentPage"];
+    
+    [_viewControllers release];
+    [_scrollView release];
+    [_titleLabel release];
+    [_pageControl release];
+    
+    [super dealloc];
 }
 
 #pragma mark - interface orientation
